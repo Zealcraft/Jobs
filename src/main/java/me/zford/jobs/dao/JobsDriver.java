@@ -1,6 +1,7 @@
 /**
  * Jobs Plugin for Bukkit
  * Copyright (C) 2011 Zak Ford <zak.j.ford@gmail.com>
+ * Copyright (C) 2013 Simon Bastien-Filitrault <root@gopoi.net>
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,7 +23,9 @@ import java.sql.Connection;
 import java.sql.Driver;
 import java.sql.DriverPropertyInfo;
 import java.sql.SQLException;
+import java.sql.SQLFeatureNotSupportedException;
 import java.util.Properties;
+import java.util.logging.Logger;
 
 public class JobsDriver implements Driver {
     private Driver driver;
@@ -59,4 +62,10 @@ public class JobsDriver implements Driver {
     public boolean jdbcCompliant() {
         return driver.jdbcCompliant();
     }
+
+	@Override
+	public Logger getParentLogger() throws SQLFeatureNotSupportedException {
+		// TODO Auto-generated method stub
+		return driver.getParentLogger();
+	}
 }

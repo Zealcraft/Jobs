@@ -1,6 +1,7 @@
 /**
  * Jobs Plugin for Bukkit
  * Copyright (C) 2011 Zak Ford <zak.j.ford@gmail.com>
+ * Copyright (C) 2013 Simon Bastien-Filiatrault <root@gopoi.net>
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -42,6 +43,9 @@ public abstract class JobsConfiguration {
     protected boolean modifyChat;
     protected int economyBatchDelay;
     protected boolean saveOnDisconnect;
+    protected boolean closedEconomy;
+    protected String closedEconomyAccount;
+    
     
     public abstract void reload();
     
@@ -157,5 +161,13 @@ public abstract class JobsConfiguration {
     
     public synchronized Locale getLocale() {
         return locale;
+    }
+    
+    public synchronized boolean getClosedEconomy() {
+    	return closedEconomy;
+    }
+    
+    public synchronized String getClosedEconomyAccount() {
+    	return closedEconomyAccount;
     }
 }

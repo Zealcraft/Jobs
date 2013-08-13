@@ -1,6 +1,7 @@
 /**
  * Jobs Plugin for Bukkit
  * Copyright (C) 2011 Zak Ford <zak.j.ford@gmail.com>
+ * Copyright (C) 2013 Simon Bastien-Filiatrault <root@gopoi.net>
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -139,6 +140,13 @@ public class BukkitJobsConfiguration extends JobsConfiguration {
                 "Setting this too low may cause tick lag.  Increase this to improve economy performance (at the cost of delays in payment)");
         config.addDefault("economy-batch-delay", 5);
         
+        //Add functionnality for closed economy
+        writer.addComment("closed-economy", "Enables or not closed Economy");
+        config.addDefault("closed-economy", false);
+        
+        writer.addComment("closed-economy-account", "The account used for closed economy");
+        config.addDefault("closed-economy-account", "Bank");
+        
         String storageMethod = config.getString("storage-method");
         if(storageMethod.equalsIgnoreCase("mysql")) {
             String username = config.getString("mysql-username");
@@ -207,6 +215,9 @@ public class BukkitJobsConfiguration extends JobsConfiguration {
         modifyChat = config.getBoolean("modify-chat");
         economyBatchDelay = config.getInt("economy-batch-delay");
         saveOnDisconnect = config.getBoolean("save-on-disconnect");
+        closedEconomy = config.getBoolean("closed-economy");
+        closedEconomyAccount = config.getString("closed-economy-account");
+        
         
         // Make sure we're only copying settings we care about
         copySetting(config, writer, "locale-language");
@@ -226,6 +237,8 @@ public class BukkitJobsConfiguration extends JobsConfiguration {
         copySetting(config, writer, "add-xp-player");
         copySetting(config, writer, "modify-chat");
         copySetting(config, writer, "economy-batch-delay");
+        copySetting(config, writer, "closed-economy");
+        copySetting(config, writer, "closed-economy-account");
         
         // Write back config
         try {

@@ -1,6 +1,7 @@
 /**
  * Jobs Plugin for Bukkit
  * Copyright (C) 2011 Zak Ford <zak.j.ford@gmail.com>
+ * Copyright (C) 2013 Simon Bastien-Filiatrault <root@gopoi.net>
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,26 +19,59 @@
 
 package me.zford.jobs.bukkit.economy;
 
+import me.zford.jobs.config.ConfigManager;
 import me.zford.jobs.economy.Economy;
 
 public class VaultEconomy implements Economy {
-    private net.milkbowl.vault.economy.Economy vault;
-    public VaultEconomy(net.milkbowl.vault.economy.Economy vault) {
-        this.vault = vault;
+	private net.milkbowl.vault.economy.Economy vault;
+
+	public VaultEconomy(net.milkbowl.vault.economy.Economy vault) {
+		this.vault = vault;
+	}
+
+	@Override
+    public synchronized boolean depositPlayer(String playerName, double money) {
+    	
+    	if (ConfigManager.getJobsConfiguration().getClosedEconomy()){
+    		
+    		if  (withdrawBank(money))  {
+    			if (!vault.depositPlayer(playerName, money).transactionSuccess()) {
+    				depositBank(money);			
+    			} else {
+    				return true;
+    			}
+    		}
+    	} else return vault.depositPlayer(playerName, money).transactionSuccess();
+    	
+    	return false;
     }
 
-    @Override
-    public boolean depositPlayer(String playerName, double money) {
-        return vault.depositPlayer(playerName, money).transactionSuccess();
-    }
+	@Override
+	public synchronized boolean withdrawPlayer(String playerName, double money) {
+		
+    	if (ConfigManager.getJobsConfiguration().getClosedEconomy()){
+    		
+    		if  (depositBank(money))  {
+    			if (!vault.withdrawPlayer(playerName, money).transactionSuccess()) {
+    				withdrawBank(money);			
+    			} else {
+    				return true;
+    			}
+    		}
+    	} else 	return vault.withdrawPlayer(playerName, money).transactionSuccess();
+    	return false;
+	}
 
-    @Override
-    public boolean withdrawPlayer(String playerName, double money) {
-        return vault.withdrawPlayer(playerName, money).transactionSuccess();
-    }
-
-    @Override
-    public String format(double money) {
-        return vault.format(money);
-    }
+	@Override
+	public String format(double money) {
+		return vault.format(money);
+	}
+	
+	private synchronized boolean withdrawBank(double money){
+		return vault.withdrawPlayer(ConfigManager.getJobsConfiguration().getClosedEconomyAccount(), money).transactionSuccess();
+	}
+	
+	private synchronized boolean depositBank(double money){
+		return vault.depositPlayer(ConfigManager.getJobsConfiguration().getClosedEconomyAccount(), money).transactionSuccess();
+	}
 }
