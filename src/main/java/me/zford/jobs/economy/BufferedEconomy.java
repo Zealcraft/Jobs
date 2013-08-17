@@ -1,7 +1,8 @@
 /**
  * Jobs Plugin for Bukkit
  * Copyright (C) 2011 Zak Ford <zak.j.ford@gmail.com>
- * 
+ * Copyright (C) 2013 Simon Bastien-Filiatrault <root@gopoi.net>
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -57,7 +58,10 @@ public class BufferedEconomy {
     public String format(double money) {
         return economy.format(money);
     }
-    
+
+    public Economy getEconomy(){
+        return economy;
+    }
     /**
      * Payout all players the amount they are going to be paid
      */

@@ -1,7 +1,8 @@
 /**
  * Jobs Plugin for Bukkit
  * Copyright (C) 2011 Zak Ford <zak.j.ford@gmail.com>
- * 
+ * Copyright (C) 2013 Simon Bastien-Filiatrault <root@gopoi.net>
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -763,7 +764,7 @@ public abstract class JobsCommands {
         for (JobInfo info: jobInfo) {
             String materialName = info.getName().toLowerCase().replace('_', ' ');
             
-            double income = info.getIncome(level, numjobs);
+            double income = info.getIncome(level, numjobs, Jobs.getEconomy().getEconomy().getPlayerCurrentMoney(player.getName()), 1d);
             ChatColor incomeColor = income >= 0 ? ChatColor.GREEN : ChatColor.DARK_RED;
             
             double xp = info.getExperience(level, numjobs);

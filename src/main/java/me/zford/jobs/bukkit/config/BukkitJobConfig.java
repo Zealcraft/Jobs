@@ -1,6 +1,7 @@
 /**
  * Jobs Plugin for Bukkit
  * Copyright (C) 2011 Zak Ford <zak.j.ford@gmail.com>
+ * Copyright (C) 2013 Simon Bastien-Filiatrault <root@gopoi.net>
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -152,6 +153,8 @@ public class BukkitJobConfig extends JobConfig {
                 incomeEquation.setVariable("numjobs", 1);
                 incomeEquation.setVariable("joblevel", 1);
                 incomeEquation.setVariable("baseincome", 1);
+                maxExpEquation.setVariable("currentmoney", 1);
+                maxExpEquation.setVariable("worldtotal", 1);
                 incomeEquation.getValue();
             } catch(Exception e) {
                 Jobs.getPluginLogger().warning("Job " + jobKey + " has an invalid income-progression-equation property. Skipping job!");

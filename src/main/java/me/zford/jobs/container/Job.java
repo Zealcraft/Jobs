@@ -1,6 +1,7 @@
 /**
  * Jobs Plugin for Bukkit
  * Copyright (C) 2011 Zak Ford <zak.j.ford@gmail.com>
+ * Copyright (C) 2013 Simon Bastien-Filiatrault <root@gopoi.net>
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -107,11 +108,11 @@ public class Job {
      * @return the income received for performing action
      */
     
-    public Double getIncome(ActionInfo action, int level, int numjobs) {
+    public Double getIncome(ActionInfo action, int level, int numjobs, double currentmoney, double worldtotal) {
         List<JobInfo> jobInfo = getJobInfo(action.getType());
         for (JobInfo info : jobInfo) {
             if (info.getName().equals(action.getName()) || info.getName().equals(action.getNameWithSub()))
-                return info.getIncome(level, numjobs);
+                return info.getIncome(level, numjobs, currentmoney, worldtotal);
         }
         return null;
     }

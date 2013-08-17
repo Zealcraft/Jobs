@@ -1,6 +1,7 @@
 /**
  * Jobs Plugin for Bukkit
  * Copyright (C) 2011 Zak Ford <zak.j.ford@gmail.com>
+ * Copyright (C) 2013 Simon Bastien-Filiatrault <root@gopoi.net>
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -334,14 +335,14 @@ public class Jobs {
         if (numjobs == 0) {
             Job jobNone = Jobs.getNoneJob();
             if (jobNone != null) {
-                Double income = jobNone.getIncome(info, 1, numjobs);
+                Double income = jobNone.getIncome(info, 1, numjobs, Jobs.getEconomy().getEconomy().getPlayerCurrentMoney(jPlayer.getName()), 1d);
                 if (income != null)
                     Jobs.getEconomy().pay(jPlayer, income*multiplier);
             }
         } else {
             for (JobProgression prog : progression) {
                 int level = prog.getLevel();
-                Double income = prog.getJob().getIncome(info, level, numjobs);
+                Double income = prog.getJob().getIncome(info, level, numjobs, Jobs.getEconomy().getEconomy().getPlayerCurrentMoney(jPlayer.getName()), 1d);
                 if (income != null) {
                     Double exp = prog.getJob().getExperience(info, level, numjobs);
                     if (ConfigManager.getJobsConfiguration().addXpPlayer()) {

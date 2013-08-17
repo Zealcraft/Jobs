@@ -66,12 +66,17 @@ public class VaultEconomy implements Economy {
 	public String format(double money) {
 		return vault.format(money);
 	}
-	
-	private synchronized boolean withdrawBank(double money){
+
+    @Override
+    public  double getPlayerCurrentMoney(String playerName){
+        return  vault.getBalance(playerName);
+    }
+
+	private boolean withdrawBank(double money){
 		return vault.withdrawPlayer(ConfigManager.getJobsConfiguration().getClosedEconomyAccount(), money).transactionSuccess();
 	}
 	
-	private synchronized boolean depositBank(double money){
+	private boolean depositBank(double money){
 		return vault.depositPlayer(ConfigManager.getJobsConfiguration().getClosedEconomyAccount(), money).transactionSuccess();
 	}
 }
