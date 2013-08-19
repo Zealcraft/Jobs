@@ -49,7 +49,7 @@
     <dependency>
       <groupId>org.bukkit</groupId>
       <artifactId>bukkit</artifactId>
-      <version>1.5.2-R1.0</version>
+      <version>1.6.2-R0.1</version>
     </dependency>
     <dependency>
       <groupId>net.milkbowl.vault</groupId>
@@ -110,7 +110,9 @@
           <properties>
             <description>Jobs Plugin for Bukkit</description>
             <year>2011</year>
+
             <owner>Zak Ford</owner>
+
             <email>zak.j.ford@gmail.com</email>
           </properties>
         </configuration>

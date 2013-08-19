@@ -41,7 +41,7 @@ import me.zford.jobs.util.JobsClassLoader;
 public class Jobs {
     private static Jobs instance = new Jobs();
     private static PlayerManager pManager = new PlayerManager();
-    
+
     private static Logger pLogger;
     private static File dataFolder;
     private static JobsClassLoader classLoader = new JobsClassLoader(instance);
